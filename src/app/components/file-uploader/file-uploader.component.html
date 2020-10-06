@@ -12,12 +12,29 @@
     </div>
   </div>
 
-  <table class="table table-dark">
+  <table class="table">
+    <thead class="thead-dark" *ngIf="showTableHeader">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Number</th>
+        <th scope="col">Department</th>
+      </tr>
+    </thead>
     <tbody>
-        <tr *ngFor="let row of data" scope="row">
-           <td *ngFor="let cell of row">
-               {{cell}}
-           </td>
+        <tr *ngFor="let employee of employees" scope="row">
+          <td>{{ employee.iD  }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.number }}</td>
+          <td>{{ employee.department }}</td>
+           <!-- <td *ngFor="let cell of employee">
+               {{ cell }}
+           </td> -->
         </tr>
     </tbody>
 </table>
+
+<button type="button" (click)="saveEmployees()"  [disabled]="!showTableHeader" class="btn btn-dark">Save Employees</button>
+
