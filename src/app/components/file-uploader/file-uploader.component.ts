@@ -18,6 +18,10 @@ export class FileUploaderComponent implements OnInit {
    
   headers: string[];
 
+  spinnerFlag: boolean;
+
+  spinnerFlagDownload: boolean;
+
   constructor(private employeeService: EmployeeService) { 
    
   }
@@ -25,7 +29,7 @@ export class FileUploaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onFileChange(event: any){
+  onFileChange(event: any) {
     const target : DataTransfer = <DataTransfer> (event.target);
     
     if(target.files.length !== 1) throw new Error('Cannot use multiple files');
@@ -46,11 +50,17 @@ export class FileUploaderComponent implements OnInit {
 }
 
   saveEmployees() :void {
-    this.employeeService.saveAllEmployees(this.employees);
+    this.spinnerFlag = true;
+    this.employeeService.saveAllEmployees(this.employees, (result: boolean) => {
+      this.spinnerFlag =false;
+    });
   }
 
   downloadAsExcel() :void {
-    this.employeeService.exportAsExcelFile(this.employees, EMPLOYEE_EXCEL_FILE_NAME);
+    this.spinnerFlagDownload = true;
+    this.employeeService.exportAsExcelFile(this.employees, EMPLOYEE_EXCEL_FILE_NAME, (result:boolean) => {
+      this.spinnerFlagDownload =false;
+    });
   }
 
 }

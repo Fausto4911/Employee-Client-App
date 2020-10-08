@@ -30,7 +30,12 @@
 </table>
 
   <button type="button" style="margin-right: 0.5em;" 
-  (click)="saveEmployees()" [disabled]="!showTableHeader"  class="btn btn-dark btn-primary">Save Employees</button>
+  (click)="saveEmployees()" [disabled]="!showTableHeader"  class="btn btn-dark btn-primary">Save Employees
+  <span *ngIf="spinnerFlag" class="spinner-border spinner-border-sm"></span>
+</button>
   <button type="button" style="margin-right: 0.5em;" 
-  (click)="downloadAsExcel()" [disabled]="!showTableHeader" class="btn btn-dark btn-secondary">Download Employees</button>
+  (click)="downloadAsExcel()" [disabled]="!showTableHeader" class="btn btn-dark btn-secondary">Download Employees
+  <span *ngIf="spinnerFlagDownload" class="spinner-border spinner-border-sm"></span>
+</button>
+  
 

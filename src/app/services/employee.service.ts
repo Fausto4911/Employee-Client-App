@@ -63,15 +63,17 @@ export class EmployeeService {
         return employees;
     }
 
-    saveAllEmployees(employees : Employee []): void {
+    saveAllEmployees(employees : Employee [], callBack: any): void {
                  this.http.post<any>(EMPLOYEE_SAVE_URL, employees)
                  .subscribe({
         next: response => {
             console.log(response);
             console.log('success');
+            callBack(true);
         },
         error: error => {
             console.error('There was an error !', error);
+            callBack(false);
         }
     });
     }
@@ -92,11 +94,12 @@ export class EmployeeService {
         return true;
     }
 
-    exportAsExcelFile(json: any[], excelFileName: string) : void {
+    exportAsExcelFile(json: any[], excelFileName: string, callBack: any) : void {
         const worksheet:  XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
         const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet}, SheetNames: ['data'] };
         const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type:'array' });
         this.saveAsExcelFile(excelBuffer, excelFileName);
+        callBack(true);
     }
 
     saveAsExcelFile(buffer: any, fileName: string): void {
