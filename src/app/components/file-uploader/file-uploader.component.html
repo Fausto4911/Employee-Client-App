@@ -15,11 +15,12 @@
   <table class="table">
     <thead class="thead-dark" *ngIf="showTableHeader">
       <tr>
-        <th scope="col">ID</th>
+        <th *ngFor="let head of headers">{{ head | uppercase }}</th>
+        <!-- <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">LastName</th>
         <th scope="col">Number</th>
-        <th scope="col">Department</th>
+        <th scope="col">Department</th> -->
       </tr>
     </thead>
     <tbody>
