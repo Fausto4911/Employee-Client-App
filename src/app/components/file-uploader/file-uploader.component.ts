@@ -3,6 +3,8 @@ import * as XLSX from 'xlsx';
 import { EmployeeService } from './../../services/employee.service';
 import { Employee } from './../../model/employee.model';
 
+const EMPLOYEE_EXCEL_FILE_NAME = 'Employees';
+
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.component.html',
@@ -33,22 +35,22 @@ export class FileUploaderComponent implements OnInit {
     reader.readAsBinaryString(target.files[0]);
 }
 
-loadEmployees(e : any): void {
-  const bstr : string = e.target.result;
-  const wb: XLSX.WorkBook = XLSX.read(bstr, {type: 'binary'});
-  const wsname: string = wb.SheetNames[0];
-  const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-  let data : [][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-  if(!this.employeeService.areIdsValid(data)) {
-    console.error('There are two or more IDs equals !');
-  }
-  this.headers = this.employeeService.getHeadersFromExcel(data);
-  this.employees = this.employeeService.validateAndCreateLEmployeesFromExcel(data);
-  if(this.employees) this.showTableHeader = true;
+  loadEmployees(e : any): void {
+    let data : [][] = this.employeeService.readDataFromExel(e); 
+    if(!this.employeeService.areIdsValid(data)) {
+      console.error('There are two or more IDs equals !');
+    }
+    this.headers = this.employeeService.getHeadersFromExcel(data);
+    this.employees = this.employeeService.validateAndCreateLEmployeesFromExcel(data);
+    if(this.employees) this.showTableHeader = true;
 }
 
-saveEmployees() :void {
-  this.employeeService.saveAllEmployees(this.employees);
-}
+  saveEmployees() :void {
+    this.employeeService.saveAllEmployees(this.employees);
+  }
+
+  downloadAsExcel() :void {
+    this.employeeService.exportAsExcelFile(this.employees, EMPLOYEE_EXCEL_FILE_NAME);
+  }
 
 }

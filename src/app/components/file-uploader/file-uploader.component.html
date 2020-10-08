@@ -16,11 +16,6 @@
     <thead class="thead-dark" *ngIf="showTableHeader">
       <tr>
         <th *ngFor="let head of headers">{{ head | uppercase }}</th>
-        <!-- <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">LastName</th>
-        <th scope="col">Number</th>
-        <th scope="col">Department</th> -->
       </tr>
     </thead>
     <tbody>
@@ -30,12 +25,12 @@
           <td>{{ employee.lastName }}</td>
           <td>{{ employee.number }}</td>
           <td>{{ employee.department }}</td>
-           <!-- <td *ngFor="let cell of employee">
-               {{ cell }}
-           </td> -->
         </tr>
     </tbody>
 </table>
 
-<button type="button" (click)="saveEmployees()"  [disabled]="!showTableHeader" class="btn btn-dark">Save Employees</button>
+  <button type="button" style="margin-right: 0.5em;" 
+  (click)="saveEmployees()" [disabled]="!showTableHeader"  class="btn btn-dark btn-primary">Save Employees</button>
+  <button type="button" style="margin-right: 0.5em;" 
+  (click)="downloadAsExcel()" [disabled]="!showTableHeader" class="btn btn-dark btn-secondary">Download Employees</button>
 
