@@ -51,8 +51,15 @@ export class FileUploaderComponent implements OnInit {
 
   saveEmployees() :void {
     this.spinnerFlag = true;
-    this.employeeService.saveAllEmployees(this.employees, (result: boolean) => {
+     this.employeeService.saveAllEmployees(this.employees, (result: boolean, employeesSaved: Employee[]) => {
       this.spinnerFlag =false;
+      if(result) {
+        console.log('Employees succes saved');
+        this.employees = employeesSaved;
+      } else {
+            console.error('Error saving Employees');
+      }
+      
     });
   }
 

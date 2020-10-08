@@ -64,16 +64,16 @@ export class EmployeeService {
     }
 
     saveAllEmployees(employees : Employee [], callBack: any): void {
-                 this.http.post<any>(EMPLOYEE_SAVE_URL, employees)
+                 this.http.post<Employee>(EMPLOYEE_SAVE_URL, employees)
                  .subscribe({
         next: response => {
             console.log(response);
             console.log('success');
-            callBack(true);
+            callBack(true, response);
         },
         error: error => {
             console.error('There was an error !', error);
-            callBack(false);
+            callBack(false, error);
         }
     });
     }
