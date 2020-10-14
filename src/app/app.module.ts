@@ -10,6 +10,7 @@ import { BodyComponent } from './components/body/body.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { EmployeeService } from './services/employee.service';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     HeaderComponent,
     BodyComponent,
     FooterComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
