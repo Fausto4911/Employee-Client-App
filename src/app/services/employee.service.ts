@@ -4,10 +4,12 @@ import { Employee } from './../model/employee.model';
 import { EmployeeValidatorService } from './employee-validator.service';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { Observable } from 'rxjs';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8;';
 const EXCEL_EXTENSION = '.xlsx';
 const EMPLOYEE_SAVE_URL = 'http://localhost:8080/employees/all';
+const EMPLOYEE_URL = 'http://localhost:8080/employees';
 
 @Injectable({
     providedIn: 'root'
@@ -115,4 +117,9 @@ export class EmployeeService {
       let data : [][] = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
       return data;
     }
-}
+
+    getEmployees(): Observable<Employee[]> {
+        return this.http.get<Employee[]>(EMPLOYEE_URL);
+    }
+
+  }

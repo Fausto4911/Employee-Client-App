@@ -1,8 +1,11 @@
 <table class="table">
     <thead class="thead-dark" *ngIf="showTableHeader">
       <tr>
-        <th *ngFor="let head of headers">{{ head | uppercase }}</th>
-      </tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>LAST NAME</th>
+        <th>NUMBER</th>
+        <th>DEPARTMENT</th>
     </thead>
     <tbody>
         <tr *ngFor="let employee of employees" scope="row">
